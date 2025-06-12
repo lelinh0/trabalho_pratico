@@ -3,6 +3,7 @@ const apiUrl = 'https://trabalho-pratico-5jxs.onrender.com/alunos';
 const lista = document.getElementById('lista-alunos');
 const form = document.getElementById('form-aluno');
 
+// Função para listar alunos
 function carregarAlunos() {
   fetch(apiUrl)
     .then(res => res.json())
@@ -12,18 +13,24 @@ function carregarAlunos() {
         const li = document.createElement('li');
         li.innerHTML = `
           ${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular})
-          <button onclick="apagarAluno(${aluno.id})">Apagar</button>
+          <button onclick="apagarAluno('${aluno._id}')">Apagar</button>
         `;
         lista.appendChild(li);
       });
-    });
+    })
+    .catch(err => console.error('Erro ao carregar alunos:', err));
 }
 
+// Função para apagar um aluno
 function apagarAluno(id) {
-  fetch(`${apiUrl}/${id}`, { method: 'DELETE' })
-    .then(() => carregarAlunos());
+  fetch(`${apiUrl}/${id}`, {
+    method: 'DELETE'
+  })
+  .then(() => carregarAlunos())
+  .catch((erro) => console.error('Erro ao apagar:', erro));
 }
 
+// Submeter novo aluno
 form.addEventListener('submit', e => {
   e.preventDefault();
   const novoAluno = {
@@ -40,7 +47,9 @@ form.addEventListener('submit', e => {
     .then(() => {
       form.reset();
       carregarAlunos();
-    });
+    })
+    .catch(err => console.error('Erro ao adicionar aluno:', err));
 });
 
+// Carregar alunos ao iniciar
 carregarAlunos();
