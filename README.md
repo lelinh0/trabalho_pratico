@@ -25,8 +25,8 @@ trabalho-api/
 
 ## 🌐 Links da Aplicação
 
-- 🔗 **Frontend (Vercel)**: [https://teu-frontend.vercel.app](https://teu-frontend.vercel.app)
-- 🔗 **API real (Render)**: [https://tua-api.onrender.com](https://tua-api.onrender.com)
+- 🔗 **Frontend (Vercel)**: [https://trabalho-pratico-git-main-hugos-projects-6773b07d.vercel.app](https://trabalho-pratico-git-main-hugos-projects-6773b07d.vercel.app)
+- 🔗 **API real (Render)**: [https://trabalho-pratico-5jxs.onrender.com](https://trabalho-pratico-5jxs.onrender.com)
 
 ---
 
