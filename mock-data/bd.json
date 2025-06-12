@@ -1,0 +1,35 @@
+{
+  "alunos": [
+    {
+      "nome": "Hugo",
+      "apelido": "Carvalho",
+      "curso": "Engenharia de Redes",
+      "anoCurricular": 3,
+      "id": "1"
+    },
+    {
+      "id": "94eb"
+    },
+    {
+      "id": "1538",
+      "nome": "João",
+      "apelido": "Costa",
+      "curso": "Multimédia",
+      "anoCurricular": 1
+    }
+  ],
+  "cursos": [
+    {
+      "id": "1",
+      "nomeDoCurso": "Engenharia de Redes"
+    },
+    {
+      "id": "2",
+      "nomeDoCurso": "Engenharia Informática"
+    },
+    {
+      "id": "3",
+      "nomeDoCurso": "Gestão"
+    }
+  ]
+}

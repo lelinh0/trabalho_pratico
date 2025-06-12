@@ -1,0 +1,19 @@
+{
+	"info": {
+		"_postman_id": "9317b798-d8ee-40a3-8b36-9e91300d7dee",
+		"name": "trabalho_pratico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45841565",
+		"_collection_link": "https://hugocarvalho-5023913.postman.co/workspace/Hugo-Carvalho's-Workspace~22db4414-badf-4dd5-8fc5-90097e843e72/collection/45841565-9317b798-d8ee-40a3-8b36-9e91300d7dee?action=share&source=collection_link&creator=45841565"
+	},
+	"item": [
+		{
+			"name": "trabalho",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
