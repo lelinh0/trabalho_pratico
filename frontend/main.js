@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3001'; // depois mudas para Render
+const apiUrl = 'https://trabalho-pratico-5jxs.onrender.com/alunos';
 
 const lista = document.getElementById('lista-alunos');
 const form = document.getElementById('form-aluno');
