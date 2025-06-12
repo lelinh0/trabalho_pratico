@@ -43,23 +43,6 @@ trabalho-pratico/
 
 ---
 
-## 🚀 Como correr localmente
-
-1. Instalar dependências:
-```bash
-npm install
-
-
-
----
-
-## 🚀 Links de Deploy
-
-- 🔗 **Frontend (Vercel):** https://trabalho-pratico.vercel.app  
-- 🔗 **Backend (Render):** https://trabalho-pratico-5jxs.onrender.com
-
----
-
 ## 🧪 Testes (Parte 2)
 
 - API simulada criada com JSON-server
@@ -75,6 +58,16 @@ npm install
 - A documentação Swagger (opcional) não foi implementada.
 
 ---
+
+## 🚀 Como correr localmente
+
+1. Instalar dependências:
+```bash
+npm install
+
+
+
+
 
 
 
