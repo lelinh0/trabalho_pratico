@@ -12,7 +12,7 @@ Consolidar conhecimentos em desenvolvimento web com:
 
 ## 📁 Organização
 
-trabalho-api/
+trabalho-pratico/
 ├── backend/ # API real com Node + Express + MongoDB
 ├── frontend/ # Página web HTML/CSS/JS (CRUD de alunos)
 ├── mock-data/ # bd.json para JSON-Server
@@ -21,11 +21,15 @@ trabalho-api/
 ├── README.md # Este ficheiro
 
 
+
+
+
 ---
 
 ## 🌐 Links da Aplicação
 
 - 🔗 **Frontend (Vercel)**: [https://trabalho-pratico-git-main-hugos-projects-6773b07d.vercel.app](https://trabalho-pratico-git-main-hugos-projects-6773b07d.vercel.app)
+
 - 🔗 **API real (Render)**: [https://trabalho-pratico-5jxs.onrender.com](https://trabalho-pratico-5jxs.onrender.com)
 
 ---
