@@ -7,7 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// CORRETO
 const alunoRoutes = require('./routes/alunoRoutes');
 app.use('/alunos', alunoRoutes);
 
@@ -19,6 +18,4 @@ mongoose.connect(process.env.MONGODB_URI)
       console.log(`Servidor a correr na porta ${PORT}`);
     });
   })
-  .catch((err) => {
-    console.error('Erro a ligar à base de dados:', err);
-  });
+  .catch((err) => console.error('Erro ao ligar à BD:', err));

@@ -1,10 +1,9 @@
 const apiUrl = 'https://trabalho-pratico-5jxs.onrender.com/alunos';
 
+let alunoEmEdicao = null;
 const lista = document.getElementById('lista-alunos');
 const form = document.getElementById('form-aluno');
 const botaoSubmit = form.querySelector('button');
-
-let alunoEmEdicao = null; // null = modo adicionar | string = id MongoDB
 
 function carregarAlunos() {
   fetch(apiUrl)
@@ -13,34 +12,26 @@ function carregarAlunos() {
       lista.innerHTML = '';
       alunos.forEach(aluno => {
         const li = document.createElement('li');
-        li.textContent = `${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular}) `;
+        li.textContent = `${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular})`;
 
-        // Botão Apagar
-        const botaoApagar = document.createElement('button');
-        botaoApagar.textContent = 'Apagar';
-        botaoApagar.addEventListener('click', () => apagarAluno(aluno._id));
-        li.appendChild(botaoApagar);
+        const apagarBtn = document.createElement('button');
+        apagarBtn.textContent = 'Apagar';
+        apagarBtn.onclick = () => apagarAluno(aluno._id);
+        li.appendChild(apagarBtn);
 
-        // Botão Editar
-        const botaoEditar = document.createElement('button');
-        botaoEditar.textContent = 'Editar';
-        botaoEditar.addEventListener('click', () => carregarParaEdicao(aluno));
-        li.appendChild(botaoEditar);
+        const editarBtn = document.createElement('button');
+        editarBtn.textContent = 'Editar';
+        editarBtn.onclick = () => carregarParaEdicao(aluno);
+        li.appendChild(editarBtn);
 
         lista.appendChild(li);
       });
-    })
-    .catch(erro => {
-      console.error('Erro ao carregar alunos:', erro);
     });
 }
 
 function apagarAluno(id) {
   fetch(`${apiUrl}/${id}`, { method: 'DELETE' })
-    .then(() => carregarAlunos())
-    .catch(erro => {
-      console.error('Erro ao apagar aluno:', erro);
-    });
+    .then(() => carregarAlunos());
 }
 
 function carregarParaEdicao(aluno) {
@@ -49,52 +40,41 @@ function carregarParaEdicao(aluno) {
   document.getElementById('curso').value = aluno.curso;
   document.getElementById('anoCurricular').value = aluno.anoCurricular;
   alunoEmEdicao = aluno._id;
-
-  botaoSubmit.textContent = 'Guardar Alterações';
+  botaoSubmit.textContent = 'Atualizar Aluno';
 }
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-
-  const alunoData = {
-    nome: document.getElementById('nome').value.trim(),
-    apelido: document.getElementById('apelido').value.trim(),
-    curso: document.getElementById('curso').value.trim(),
+  const aluno = {
+    nome: document.getElementById('nome').value,
+    apelido: document.getElementById('apelido').value,
+    curso: document.getElementById('curso').value,
     anoCurricular: parseInt(document.getElementById('anoCurricular').value)
   };
 
   if (alunoEmEdicao) {
-    // Atualizar aluno existente
     fetch(`${apiUrl}/${alunoEmEdicao}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(alunoData)
+      body: JSON.stringify(aluno)
     })
       .then(() => {
         alunoEmEdicao = null;
         botaoSubmit.textContent = 'Adicionar Aluno';
         form.reset();
         carregarAlunos();
-      })
-      .catch(erro => {
-        console.error('Erro ao editar aluno:', erro);
       });
   } else {
-    // Criar novo aluno
     fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(alunoData)
+      body: JSON.stringify(aluno)
     })
       .then(() => {
         form.reset();
         carregarAlunos();
-      })
-      .catch(erro => {
-        console.error('Erro ao adicionar aluno:', erro);
       });
   }
 });
 
-// Carregamento inicial
 carregarAlunos();
