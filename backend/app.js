@@ -9,7 +9,8 @@ app.use(express.json()); // permite usar JSON no body das requests
 
 // 👇 AQUI ligas as rotas
 const alunoRoutes = require('./routes/alunoRoutes');
-app.use('/alunos', alunoRoutes); // <- ESTE É O TEU ENDPOINT REAL
+app.use('/alunos', require('./routes/alunoRoutes'));
+
 
 const PORT = process.env.PORT || 3001;
 
