@@ -1,11 +1,10 @@
 const apiUrl = 'https://trabalho-pratico-5jxs.onrender.com/alunos';
 
-let modoEdicao = false;
-let alunoAEditarId = null;
-
 const lista = document.getElementById('lista-alunos');
 const form = document.getElementById('form-aluno');
 const botaoSubmit = form.querySelector('button');
+
+let alunoEmEdicao = null; // null = modo adicionar | string = id MongoDB
 
 function carregarAlunos() {
   fetch(apiUrl)
@@ -14,75 +13,88 @@ function carregarAlunos() {
       lista.innerHTML = '';
       alunos.forEach(aluno => {
         const li = document.createElement('li');
-       li.innerHTML = `
-  ${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular})
-  <button onclick="apagarAluno('${aluno._id}')">Apagar</button>
-  <button onclick="editarAluno('${aluno._id}', '${encodeURIComponent(aluno.nome)}', '${encodeURIComponent(aluno.apelido)}', '${encodeURIComponent(aluno.curso)}', ${aluno.anoCurricular})">Editar</button>
-`;
+        li.textContent = `${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular}) `;
+
+        // Botão Apagar
+        const botaoApagar = document.createElement('button');
+        botaoApagar.textContent = 'Apagar';
+        botaoApagar.addEventListener('click', () => apagarAluno(aluno._id));
+        li.appendChild(botaoApagar);
+
+        // Botão Editar
+        const botaoEditar = document.createElement('button');
+        botaoEditar.textContent = 'Editar';
+        botaoEditar.addEventListener('click', () => carregarParaEdicao(aluno));
+        li.appendChild(botaoEditar);
 
         lista.appendChild(li);
       });
     })
-    .catch(err => console.error('Erro ao carregar alunos:', err));
+    .catch(erro => {
+      console.error('Erro ao carregar alunos:', erro);
+    });
 }
 
 function apagarAluno(id) {
-  fetch(`${apiUrl}/${id}`, {
-    method: 'DELETE'
-  })
+  fetch(`${apiUrl}/${id}`, { method: 'DELETE' })
     .then(() => carregarAlunos())
-    .catch(erro => console.error('Erro ao apagar:', erro));
+    .catch(erro => {
+      console.error('Erro ao apagar aluno:', erro);
+    });
 }
 
-function editarAluno(id, nome, apelido, curso, anoCurricular) {
-  console.log("ENTREI EM MODO DE EDIÇÃO:", id);
-  document.getElementById('nome').value = decodeURIComponent(nome);
-  document.getElementById('apelido').value = decodeURIComponent(apelido);
-  document.getElementById('curso').value = decodeURIComponent(curso);
-  document.getElementById('anoCurricular').value = anoCurricular;
+function carregarParaEdicao(aluno) {
+  document.getElementById('nome').value = aluno.nome;
+  document.getElementById('apelido').value = aluno.apelido;
+  document.getElementById('curso').value = aluno.curso;
+  document.getElementById('anoCurricular').value = aluno.anoCurricular;
+  alunoEmEdicao = aluno._id;
 
-  modoEdicao = true;
-  alunoAEditarId = id;
-  botaoSubmit.textContent = 'Atualizar Aluno';
+  botaoSubmit.textContent = 'Guardar Alterações';
 }
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-  const aluno = {
+
+  const alunoData = {
     nome: document.getElementById('nome').value.trim(),
     apelido: document.getElementById('apelido').value.trim(),
     curso: document.getElementById('curso').value.trim(),
     anoCurricular: parseInt(document.getElementById('anoCurricular').value)
   };
 
-  if (modoEdicao) {
-    fetch(`${apiUrl}/${alunoAEditarId}`, {
+  if (alunoEmEdicao) {
+    // Atualizar aluno existente
+    fetch(`${apiUrl}/${alunoEmEdicao}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(aluno)
+      body: JSON.stringify(alunoData)
     })
-      .then(res => {
-        if (!res.ok) throw new Error('Erro ao atualizar');
-        modoEdicao = false;
-        alunoAEditarId = null;
+      .then(() => {
+        alunoEmEdicao = null;
         botaoSubmit.textContent = 'Adicionar Aluno';
         form.reset();
         carregarAlunos();
       })
-      .catch(err => console.error('Erro ao atualizar aluno:', err));
+      .catch(erro => {
+        console.error('Erro ao editar aluno:', erro);
+      });
   } else {
+    // Criar novo aluno
     fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(aluno)
+      body: JSON.stringify(alunoData)
     })
-      .then(res => {
-        if (!res.ok) throw new Error('Erro ao adicionar');
+      .then(() => {
         form.reset();
         carregarAlunos();
       })
-      .catch(err => console.error('Erro ao adicionar aluno:', err));
+      .catch(erro => {
+        console.error('Erro ao adicionar aluno:', erro);
+      });
   }
 });
 
+// Carregamento inicial
 carregarAlunos();
