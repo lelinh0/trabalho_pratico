@@ -5,9 +5,8 @@ let alunoAEditarId = null;
 
 const lista = document.getElementById('lista-alunos');
 const form = document.getElementById('form-aluno');
-const botaoSubmit = form.querySelector('button'); // vamos trocar o texto dinamicamente
+const botaoSubmit = form.querySelector('button');
 
-// Função para listar alunos
 function carregarAlunos() {
   fetch(apiUrl)
     .then(res => res.json())
@@ -26,7 +25,6 @@ function carregarAlunos() {
     .catch(err => console.error('Erro ao carregar alunos:', err));
 }
 
-// Função para apagar um aluno
 function apagarAluno(id) {
   fetch(`${apiUrl}/${id}`, {
     method: 'DELETE'
@@ -35,7 +33,6 @@ function apagarAluno(id) {
     .catch(erro => console.error('Erro ao apagar:', erro));
 }
 
-// Função para preparar a edição de um aluno
 function editarAluno(id, nome, apelido, curso, anoCurricular) {
   document.getElementById('nome').value = nome;
   document.getElementById('apelido').value = apelido;
@@ -44,10 +41,9 @@ function editarAluno(id, nome, apelido, curso, anoCurricular) {
 
   modoEdicao = true;
   alunoAEditarId = id;
-  botaoSubmit.textContent = 'Atualizar Aluno'; // muda o botão
+  botaoSubmit.textContent = 'Atualizar Aluno';
 }
 
-// Submeter formulário
 form.addEventListener('submit', e => {
   e.preventDefault();
   const aluno = {
@@ -58,22 +54,21 @@ form.addEventListener('submit', e => {
   };
 
   if (modoEdicao) {
-    // Atualizar aluno
     fetch(`${apiUrl}/${alunoAEditarId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(aluno)
     })
-      .then(() => {
+      .then(res => {
+        if (!res.ok) throw new Error('Erro ao atualizar');
         modoEdicao = false;
         alunoAEditarId = null;
-        botaoSubmit.textContent = 'Adicionar Aluno'; // volta ao modo normal
+        botaoSubmit.textContent = 'Adicionar Aluno';
         form.reset();
         carregarAlunos();
       })
       .catch(err => console.error('Erro ao atualizar aluno:', err));
   } else {
-    // Adicionar novo aluno
     fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -87,5 +82,4 @@ form.addEventListener('submit', e => {
   }
 });
 
-// Carregar alunos ao iniciar
 carregarAlunos();
