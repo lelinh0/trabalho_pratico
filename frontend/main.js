@@ -14,17 +14,12 @@ function carregarAlunos() {
       lista.innerHTML = '';
       alunos.forEach(aluno => {
         const li = document.createElement('li');
-        li.innerHTML = `
-          ${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular})
-          <button onclick="apagarAluno('${aluno._id}')">Apagar</button>
-          <button onclick="editarAluno(
-            '${aluno._id}',
-            '${encodeURIComponent(aluno.nome)}',
-            '${encodeURIComponent(aluno.apelido)}',
-            '${encodeURIComponent(aluno.curso)}',
-            ${aluno.anoCurricular}
-          )">Editar</button>
-        `;
+       li.innerHTML = `
+  ${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular})
+  <button onclick="apagarAluno('${aluno._id}')">Apagar</button>
+  <button onclick="editarAluno('${aluno._id}', '${encodeURIComponent(aluno.nome)}', '${encodeURIComponent(aluno.apelido)}', '${encodeURIComponent(aluno.curso)}', ${aluno.anoCurricular})">Editar</button>
+`;
+
         lista.appendChild(li);
       });
     })
