@@ -6,61 +6,36 @@
 --**Unidade Curricular:** Programação Web
 
 
-## 📚 Objetivo
-Consolidar conhecimentos em desenvolvimento web com:
-- Node.js + Express
-- MongoDB Atlas
-- JSON-Server
-- Fetch API
-- (Opcional) Swagger
+# 📚 Gestão de Alunos – Trabalho Prático #1 (Programação Web)
 
-Desenvolver uma aplicação web completa, com front-end e back-end separados, que permita gerir uma lista de alunos usando APIs RESTful.
-
+Este projeto consiste numa aplicação web completa que permite gerir uma lista de alunos. A aplicação foi desenvolvida no contexto da disciplina de Programação Web e aborda o consumo e implementação de APIs RESTful com **Node.js**, **Express**, **MongoDB**, **Fetch API** e **Deploy com Vercel + Render**.
 
 ---
 
-## 📁 Organização
+## ✨ Funcionalidades
 
-trabalho-pratico/
--- backend/ # API real com Node + Express + MongoDB
-
--- frontend/ # Página web HTML/CSS/JS (CRUD de alunos)
-
--- mock-data/ # bd.json para JSON-Server
-
--- mock-server/ # JSON-server (opcional)
-
--- tests/ # Coleção Postman exportada (.json)
-
--- README.md # Este ficheiro
-
-
-
-
+- ➕ Adicionar novos alunos  
+- 🗑️ Apagar alunos existentes  
+- ✏️ Editar dados de alunos  
+- 📡 Comunicação entre frontend e backend via Fetch API  
+- 💾 Dados persistentes numa base de dados MongoDB Atlas
 
 ---
 
-## 🌐 Links da Aplicação
+## 🧠 Tecnologias Usadas
 
-- 🔗 **Frontend (Vercel)**: [https://trabalho-pratico-git-main-hugos-projects-6773b07d.vercel.app](https://trabalho-pratico-git-main-hugos-projects-6773b07d.vercel.app)
-
-- 🔗 **API real (Render)**: [https://trabalho-pratico-5jxs.onrender.com](https://trabalho-pratico-5jxs.onrender.com)
-
----
-
-## 🧪 Testes (Parte 2)
-
-- API simulada criada com JSON-server
-- Testes realizados no Postman
-- Coleção exportada em: `/tests/trabalho_pratico.postman_collection.json`
+- **Frontend:** HTML5, CSS3, JavaScript (Vanilla), Fetch API  
+- **Backend:** Node.js + Express.js  
+- **Base de Dados:** MongoDB Atlas  
+- **Deploy Frontend:** Vercel  
+- **Deploy Backend:** Render
 
 ---
 
-## 📌 Observações
+## 🚀 Deploy
 
-- A API real foi desenvolvida com Node.js, Express e MongoDB Atlas.
-- O front-end comunica diretamente com a API real via Fetch API.
-- A documentação Swagger (opcional) não foi implementada.
+- 🔗 Frontend (Vercel): [https://trabalho-pratico-two.vercel.app](https://trabalho-pratico-two.vercel.app)  
+- 🔗 Backend (Render): [https://trabalho-pratico-5jxs.onrender.com](https://trabalho-pratico-5jxs.onrender.com)
 
 ---
 
