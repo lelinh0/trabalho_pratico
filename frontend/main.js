@@ -5,6 +5,7 @@ let alunoAEditarId = null;
 
 const lista = document.getElementById('lista-alunos');
 const form = document.getElementById('form-aluno');
+const botaoSubmit = form.querySelector('button'); // vamos trocar o texto dinamicamente
 
 // Função para listar alunos
 function carregarAlunos() {
@@ -30,11 +31,11 @@ function apagarAluno(id) {
   fetch(`${apiUrl}/${id}`, {
     method: 'DELETE'
   })
-  .then(() => carregarAlunos())
-  .catch((erro) => console.error('Erro ao apagar:', erro));
+    .then(() => carregarAlunos())
+    .catch(erro => console.error('Erro ao apagar:', erro));
 }
 
-// Função para preencher o formulário com dados do aluno a editar
+// Função para preparar a edição de um aluno
 function editarAluno(id, nome, apelido, curso, anoCurricular) {
   document.getElementById('nome').value = nome;
   document.getElementById('apelido').value = apelido;
@@ -43,9 +44,10 @@ function editarAluno(id, nome, apelido, curso, anoCurricular) {
 
   modoEdicao = true;
   alunoAEditarId = id;
+  botaoSubmit.textContent = 'Atualizar Aluno'; // muda o botão
 }
 
-// Submeter novo aluno ou atualizar
+// Submeter formulário
 form.addEventListener('submit', e => {
   e.preventDefault();
   const aluno = {
@@ -62,13 +64,14 @@ form.addEventListener('submit', e => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(aluno)
     })
-    .then(() => {
-      modoEdicao = false;
-      alunoAEditarId = null;
-      form.reset();
-      carregarAlunos();
-    })
-    .catch(err => console.error('Erro ao atualizar aluno:', err));
+      .then(() => {
+        modoEdicao = false;
+        alunoAEditarId = null;
+        botaoSubmit.textContent = 'Adicionar Aluno'; // volta ao modo normal
+        form.reset();
+        carregarAlunos();
+      })
+      .catch(err => console.error('Erro ao atualizar aluno:', err));
   } else {
     // Adicionar novo aluno
     fetch(apiUrl, {
@@ -76,14 +79,13 @@ form.addEventListener('submit', e => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(aluno)
     })
-    .then(() => {
-      form.reset();
-      carregarAlunos();
-    })
-    .catch(err => console.error('Erro ao adicionar aluno:', err));
+      .then(() => {
+        form.reset();
+        carregarAlunos();
+      })
+      .catch(err => console.error('Erro ao adicionar aluno:', err));
   }
 });
 
 // Carregar alunos ao iniciar
 carregarAlunos();
-
