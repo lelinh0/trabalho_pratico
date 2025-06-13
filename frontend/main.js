@@ -17,7 +17,13 @@ function carregarAlunos() {
         li.innerHTML = `
           ${aluno.nome} ${aluno.apelido} (${aluno.curso}, Ano ${aluno.anoCurricular})
           <button onclick="apagarAluno('${aluno._id}')">Apagar</button>
-          <button onclick="editarAluno('${aluno._id}', '${aluno.nome}', '${aluno.apelido}', '${aluno.curso}', ${aluno.anoCurricular})">Editar</button>
+          <button onclick="editarAluno(
+            '${aluno._id}',
+            '${encodeURIComponent(aluno.nome)}',
+            '${encodeURIComponent(aluno.apelido)}',
+            '${encodeURIComponent(aluno.curso)}',
+            ${aluno.anoCurricular}
+          )">Editar</button>
         `;
         lista.appendChild(li);
       });
@@ -34,9 +40,10 @@ function apagarAluno(id) {
 }
 
 function editarAluno(id, nome, apelido, curso, anoCurricular) {
-  document.getElementById('nome').value = nome;
-  document.getElementById('apelido').value = apelido;
-  document.getElementById('curso').value = curso;
+  console.log("ENTREI EM MODO DE EDIÇÃO:", id);
+  document.getElementById('nome').value = decodeURIComponent(nome);
+  document.getElementById('apelido').value = decodeURIComponent(apelido);
+  document.getElementById('curso').value = decodeURIComponent(curso);
   document.getElementById('anoCurricular').value = anoCurricular;
 
   modoEdicao = true;
@@ -47,9 +54,9 @@ function editarAluno(id, nome, apelido, curso, anoCurricular) {
 form.addEventListener('submit', e => {
   e.preventDefault();
   const aluno = {
-    nome: document.getElementById('nome').value,
-    apelido: document.getElementById('apelido').value,
-    curso: document.getElementById('curso').value,
+    nome: document.getElementById('nome').value.trim(),
+    apelido: document.getElementById('apelido').value.trim(),
+    curso: document.getElementById('curso').value.trim(),
     anoCurricular: parseInt(document.getElementById('anoCurricular').value)
   };
 
@@ -74,7 +81,8 @@ form.addEventListener('submit', e => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(aluno)
     })
-      .then(() => {
+      .then(res => {
+        if (!res.ok) throw new Error('Erro ao adicionar');
         form.reset();
         carregarAlunos();
       })
