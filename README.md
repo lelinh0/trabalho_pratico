@@ -1,9 +1,9 @@
 # Trabalho Prático #1 — Consumo e Implementação de APIs RESTful
 
-**Aluno:** Hugo dos Santos Barbosa Carvalho
-**Número:** 31791
-**Curso:** Engenharia de Redes e Sistemas de Computadores  
-**Unidade Curricular:** Programação Web
+--**Aluno:** Hugo dos Santos Barbosa Carvalho
+--**Número:** 31791
+--**Curso:** Engenharia de Redes e Sistemas de Computadores  
+--**Unidade Curricular:** Programação Web
 
 
 ## 📚 Objetivo
@@ -22,12 +22,17 @@ Desenvolver uma aplicação web completa, com front-end e back-end separados, qu
 ## 📁 Organização
 
 trabalho-pratico/
-├── backend/ # API real com Node + Express + MongoDB
-├── frontend/ # Página web HTML/CSS/JS (CRUD de alunos)
-├── mock-data/ # bd.json para JSON-Server
-├── mock-server/ # JSON-server (opcional)
-├── tests/ # Coleção Postman exportada (.json)
-├── README.md # Este ficheiro
+-- backend/ # API real com Node + Express + MongoDB
+
+-- frontend/ # Página web HTML/CSS/JS (CRUD de alunos)
+
+-- mock-data/ # bd.json para JSON-Server
+
+-- mock-server/ # JSON-server (opcional)
+
+-- tests/ # Coleção Postman exportada (.json)
+
+-- README.md # Este ficheiro
 
 
 
