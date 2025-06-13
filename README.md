@@ -64,15 +64,6 @@ trabalho-pratico/
 
 ---
 
-## 🚀 Como correr localmente
-
-1. Instalar dependências:
-```bash
-npm install
-
-
-
-
 
 
 
