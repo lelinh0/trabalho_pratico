@@ -1,16 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // lê variáveis do .env
+require('dotenv').config();
 
 const app = express();
-app.use(cors()); // permite que o frontend aceda
-app.use(express.json()); // permite usar JSON no body das requests
+app.use(cors());
+app.use(express.json());
 
-// 👇 AQUI ligas as rotas
+// CORRETO
 const alunoRoutes = require('./routes/alunoRoutes');
 app.use('/alunos', alunoRoutes);
-
 
 const PORT = process.env.PORT || 3001;
 
